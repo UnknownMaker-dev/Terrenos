@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────
+#  Terrenos — configuração
+#  Durações aceitam: "30d", "12h", "1d 12h", "45m", "90" (segundos).
+#  Depois de editar, use /terreno recarregar (ou reinicie o servidor).
+# ─────────────────────────────────────────────────────────────
+
+# Texto colocado antes de todas as mensagens do plugin ("&" vira cor).
+prefix: "&6[Terrenos]&r "
+
+# ── Criação de terrenos ──
+plots:
+  # Preço do aluguel dos terrenos novos (cada um pode ser alterado com /terreno preco).
+  # 0 = terreno grátis (não precisa de economia).
+  default-price: 10000
+
+  # true: ao criar, o terreno vai do fundo ao topo do mundo, não importa a altura
+  # das posições marcadas. false: usa só a faixa de altura entre pos1 e pos2.
+  # No comando "criar" com coordenadas, informar y1 e y2 sempre usa a faixa dada.
+  full-height: true
+
+  # Quantos terrenos um jogador pode ter ao mesmo tempo (0 = sem limite).
+  max-per-player: 3
+
+  # Quantos jogadores confiáveis cada terreno pode ter (0 = sem limite).
+  max-members: 10
+
+  # O que visitantes podem fazer num terreno recém-comprado ou liberado.
+  # O dono muda isso pelo menu ou por /terreno bandeira.
+  default-flags:
+    quebrar: false       # quebrar blocos e pinturas, apagar fogo, pisotear plantações
+    construir: false     # colocar blocos, baldes, enxada/pá/machado, acender fogo, editar placas
+    conteineres: false   # baús, barris, fornalhas, funis, shulkers, estantes, jukebox, vasos...
+    portas: false        # portas, alçapões e porteiras
+    interagir: false     # botões, alavancas, molduras, camas, bigornas e outros blocos com uso
+    entidades: false     # ferir animais e outras entidades (não jogadores)
+    pvp: false           # jogadores podem se atacar dentro do terreno
+
+# ── Aluguel ──
+rent:
+  # Duração de cada compra ou renovação.
+  duration: "30d"
+  # Máximo de tempo que pode ficar pago à frente ao renovar ("0" = sem limite).
+  max-ahead: "90d"
+  # Avisar o dono quando faltar até isto para vencer.
+  warn-before: "3d"
+  # Carência depois do vencimento: o dono continua com o terreno e pode renovar.
+  # Terminada a carência, o terreno volta a ficar à venda ("0" = libera na hora).
+  grace-period: "3d"
+  # De quanto em quanto tempo lembrar donos online de aluguel vencendo ou em carência.
+  reminder-interval: "30m"
+  # De quanto em quanto tempo verificar vencimentos.
+  check-interval: "1m"
+  # Ao liberar um terreno vencido, esvaziar todos os contêineres dentro dele.
+  # Se o mundo estiver descarregado, a limpeza acontece quando ele for carregado.
+  clear-containers-on-release: false
+
+# ── Proteção ──
+protection:
+  # Fogo pode se espalhar e queimar blocos dentro de um terreno se o fogo começou
+  # no próprio terreno? Fogo vindo de fora é sempre bloqueado.
+  fire-inside: false
+  # Explosões que começam dentro de um terreno podem destruir blocos dele?
+  # Explosões vindas de fora nunca destroem blocos de terrenos.
+  explosions-inside: false
+  # Entidades que qualquer um pode ferir mesmo em terreno alheio (ids de rede).
+  # Ex.: monstros hostis.
+  unprotected-entities:
+    - "minecraft:zombie"
+  # Intervalo mínimo entre avisos de "você não pode fazer isso aqui" (em segundos).
+  notice-cooldown: 1.5
+
+# ── Economia ──
+# Conecta a qualquer plugin de economia só pela config (ponte da Forja).
+# Sem economia configurada, terrenos com preço maior que 0 não podem ser comprados
+# nem renovados; todo o resto (proteção, menus, comandos de admin) funciona.
+economy:
+  class: ""           # nome completo da classe; vazio = sem economia
+  instance: ""        # método estático que devolve a instância (ex.: getInstance); vazio = métodos estáticos
+  plugin: ""          # opcional: só usa se este plugin estiver habilitado
+  balance: getMoney   # (Player) -> número: saldo
+  take: reduceMoney   # (Player, valor): debita
+  give: addMoney      # opcional (Player, valor): credita
+  format: ""          # opcional (valor) -> texto formatado
+  currency: "moedas"  # sufixo do formato padrão

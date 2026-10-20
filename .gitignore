@@ -1,0 +1,4 @@
+*.phar
+.idea/
+.vscode/
+vendor/

@@ -1,0 +1,19 @@
+name: Terrenos
+main: Unknown\Terrenos\Terrenos
+version: 1.0.0
+api: 5.0.0
+author: UnknownMaker-dev
+src-namespace-prefix: Unknown\Terrenos
+depend: [Forja]
+description: Terrenos alugáveis e protegidos, com dono, confiáveis, bandeiras públicas e vencimento com carência.
+
+permissions:
+  terrenos.use:
+    default: true
+    description: "Usar /terreno: ver, comprar, renovar e gerenciar os próprios terrenos."
+  terrenos.admin:
+    default: op
+    description: "Criar, apagar, precificar, listar e liberar terrenos, definir donos e recarregar a config."
+  terrenos.bypass:
+    default: op
+    description: "Ignorar a proteção de todos os terrenos (quebrar, construir, abrir e interagir)."
